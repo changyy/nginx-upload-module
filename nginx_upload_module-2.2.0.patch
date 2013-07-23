@@ -1,5 +1,11 @@
-CMakeLists.txt
-nginx_upload_module-2.2.0
-nginx_upload_module-2.2.0-modified
-nginx_upload_module-2.2.0.patch
-nginx_upload_module-2.2.0.tar.gz
+diff -Naur nginx_upload_module-2.2.0/ngx_http_upload_module.c nginx_upload_module-2.2.0-modified/ngx_http_upload_module.c
+--- nginx_upload_module-2.2.0/ngx_http_upload_module.c	2010-09-28 02:54:15.000000000 +0800
++++ nginx_upload_module-2.2.0-modified/ngx_http_upload_module.c	2013-07-23 22:57:26.873603621 +0800
+@@ -1774,6 +1774,7 @@
+     if(out_buf.file_pos < state_file->info.st_size) {
+         result = ftruncate(state_file->fd, out_buf.file_pos);
+     }
++    result &= 0;
+ 
+     rc = ms.complete_ranges ? NGX_OK : NGX_AGAIN;
+ 
