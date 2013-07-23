@@ -25,8 +25,10 @@ set(CONFIG_ADD_OPTIONS "")
 		add_custom_command(
 			OUTPUT ${TOOL_TARGET_BUILD_OUTPUT}
 			COMMAND test -e ${CMAKE_CURRENT_SOURCE_DIR}/${TOOL_TARGET_SOURCE} || wget ${TOOL_TARGET_BASE_URL}/${TOOL_TARGET_SOURCE} -O ${CMAKE_CURRENT_SOURCE_DIR}/${TOOL_TARGET_SOURCE}
-			COMMAND tar -xzvf ${CMAKE_CURRENT_SOURCE_DIR}/${TOOL_TARGET_SOURCE} -C ${CMAKE_CURRENT_SOURCE_DIR}
+			COMMAND tar -xzvf ${CMAKE_CURRENT_SOURCE_DIR}/${TOOL_TARGET_SOURCE}
 			COMMAND test -e ${CMAKE_CURRENT_SOURCE_DIR}/${TOOL_TARGET_PATCH} && cd ${TOOL_TARGET_DIR} && patch -p1 < ${CMAKE_CURRENT_SOURCE_DIR}/${TOOL_TARGET_PATCH} && echo "use patch file: ${CMAKE_CURRENT_SOURCE_DIR}/${TOOL_TARGET_PATCH}" || echo "no patch file"
+			COMMAND test -e ${CMAKE_CURRENT_SOURCE_DIR}/../modules/nginx-upload-module && rm -rf ${CMAKE_CURRENT_SOURCE_DIR}/../modules/nginx-upload-module || echo "${CMAKE_CURRENT_SOURCE_DIR}/../modules/nginx-upload-module not found"
+			COMMAND test -e ${CMAKE_CURRENT_SOURCE_DIR}/../modules && cp -r ${TOOL_TARGET_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/../modules/nginx-upload-module || echo "${CMAKE_CURRENT_SOURCE_DIR}/../modules not found"
 			WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 			COMMENT ${TOOL_TARGET_COMMENT}
 		)
@@ -34,8 +36,10 @@ set(CONFIG_ADD_OPTIONS "")
 		add_custom_command(
 			OUTPUT ${TOOL_TARGET_BUILD_OUTPUT}
 			COMMAND test -e ${CMAKE_CURRENT_SOURCE_DIR}/${TOOL_TARGET_SOURCE} || wget ${TOOL_TARGET_BASE_URL}/${TOOL_TARGET_SOURCE} -O ${CMAKE_CURRENT_SOURCE_DIR}/${TOOL_TARGET_SOURCE}
-			COMMAND tar -xzvf ${CMAKE_CURRENT_SOURCE_DIR}/${TOOL_TARGET_SOURCE} -C ${CMAKE_CURRENT_SOURCE_DIR}
+			COMMAND tar -xzvf ${CMAKE_CURRENT_SOURCE_DIR}/${TOOL_TARGET_SOURCE}
 			COMMAND test -e ${CMAKE_CURRENT_SOURCE_DIR}/${TOOL_TARGET_PATCH} && cd ${TOOL_TARGET_DIR} && patch -p1 < ${CMAKE_CURRENT_SOURCE_DIR}/${TOOL_TARGET_PATCH} && echo "use patch file: ${CMAKE_CURRENT_SOURCE_DIR}/${TOOL_TARGET_PATCH}" || echo "no patch file"
+			COMMAND test -e ${CMAKE_CURRENT_SOURCE_DIR}/../modules/nginx-upload-module && rm -rf ${CMAKE_CURRENT_SOURCE_DIR}/../modules/nginx-upload-module || echo "${CMAKE_CURRENT_SOURCE_DIR}/../modules/nginx-upload-module not found"
+			COMMAND test -e ${CMAKE_CURRENT_SOURCE_DIR}/../modules && cp -r ${TOOL_TARGET_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/../modules/nginx-upload-module || echo "${CMAKE_CURRENT_SOURCE_DIR}/../modules not found"
 			WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 			COMMENT ${TOOL_TARGET_COMMENT}
 		)
